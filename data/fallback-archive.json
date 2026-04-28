@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "title": "Raining So Hard It Hurts",
+    "tag": "Pop Culture",
+    "cat": "popculture",
+    "desc": "Comic panel. Rain and red capes. The kind of image that hits before you know why.",
+    "era": "2024",
+    "medium": "Reference",
+    "image": "/images/comic-rain.jpg",
+    "iglink": "https://www.instagram.com/p/DXmLBOriMHl/"
+  },
+  {
+    "id": 2,
+    "title": "Make Your Own Money",
+    "tag": "Archive",
+    "cat": "vintage",
+    "desc": "A mug with a manifesto. Make your own money and marry someone funny.",
+    "era": "2024",
+    "medium": "Found Object",
+    "image": "/images/coffee-mug.jpg",
+    "iglink": "https://www.instagram.com/p/DXmZD74EvjT/"
+  },
+  {
+    "id": 3,
+    "title": "Through The Trees",
+    "tag": "Pop Culture",
+    "cat": "popculture",
+    "desc": "Golden hour in a forest. A rider disappearing into the light.",
+    "era": "2024",
+    "medium": "Reference",
+    "image": "/images/forest-horse.jpg",
+    "iglink": ""
+  },
+  {
+    "id": 4,
+    "title": "Still Standing",
+    "tag": "Pop Culture",
+    "cat": "popculture",
+    "desc": "Rain-soaked. Beaten. Not done. The image says everything the caption doesn't need to.",
+    "era": "2024",
+    "medium": "Reference",
+    "image": "/images/captain-america.jpg",
+    "iglink": ""
+  },
+  {
+    "id": 5,
+    "title": "Only Star Left",
+    "tag": "Pop Culture",
+    "cat": "popculture",
+    "desc": "A figure alone in the dark on a single spotlight. Everything else is void.",
+    "era": "2024",
+    "medium": "Reference",
+    "image": "/images/figure-darkness.jpg",
+    "iglink": ""
+  },
+  {
+    "id": 6,
+    "title": "Potato Salad",
+    "tag": "Pop Culture",
+    "cat": "popculture",
+    "desc": "ASAP Rocky and Tyler the Creator. Paris. A rainbow. Maximum style, zero effort.",
+    "era": "2024",
+    "medium": "Reference",
+    "image": "/images/potato-salad.jpg",
+    "iglink": "https://www.instagram.com/p/DXmZD74EvjT/"
+  },
+  {
+    "id": 7,
+    "title": "To Charles",
+    "tag": "Archive",
+    "cat": "vintage",
+    "desc": "Schumacher's handwritten note on Leclerc's helmet. Whatever you do, be happy and smile.",
+    "era": "2024",
+    "medium": "Reference",
+    "image": "/images/schumacher-helmet.jpg",
+    "iglink": ""
+  },
+  {
+    "id": 8,
+    "title": "Red Sky",
+    "tag": "Pop Culture",
+    "cat": "popculture",
+    "desc": "Blonde. Masked. Gun to the head. Crimson background. Total composure.",
+    "era": "2024",
+    "medium": "Reference",
+    "image": "/images/comic-gun.jpg",
+    "iglink": ""
+  }
+]
