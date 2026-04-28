@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ArchiveModal from './ArchiveModal';
 import type { ArchiveItem } from '@/lib/instagram';
 
-const CATS = ['all', 'vintage', 'moodboard', 'writing', 'popculture'] as const;
+const CATS = ['all', 'vintage', 'moodboard', 'popculture'] as const;
 const CAT_LABELS: Record<string, string> = {
   all: 'All',
   vintage: 'Vintage',

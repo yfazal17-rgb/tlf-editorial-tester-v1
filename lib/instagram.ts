@@ -96,7 +96,7 @@ async function fetchViaBehold(feedId: string): Promise<ArchiveItem[]> {
         title: extractTitle(post.caption),
         tag: extractTag(post.caption),
         desc: extractDesc(post.caption),
-        cat: extractCat(post.caption),
+        cat: extractCat(post.caption, post.hashtags),
         // Behold CDN (behold.pictures) for medium-res; Instagram CDN as fallback
         image: post.sizes?.medium?.mediaUrl ?? post.sizes?.large?.mediaUrl ?? post.mediaUrl,
         iglink: post.permalink,
@@ -121,6 +121,7 @@ type BeholdPost = {
   mediaUrl: string;
   permalink: string;
   timestamp: string;
+  hashtags?: string[];
   sizes?: {
     small?: BeholdSize;
     medium?: BeholdSize;
@@ -148,11 +149,72 @@ function extractDesc(caption: string): string {
   return lines.filter((l) => !l.startsWith('#')).join(' ').trim();
 }
 
-function extractCat(caption: string): string {
-  const lower = caption?.toLowerCase() ?? '';
-  if (lower.includes('#vintage') || lower.includes('#archive')) return 'vintage';
-  if (lower.includes('#moodboard')) return 'moodboard';
-  if (lower.includes('#popculture') || lower.includes('#pop')) return 'popculture';
-  if (lower.includes('#writing') || lower.includes('#essay')) return 'writing';
+// ─── Category classification ───────────────────────────────────────────────────
+//
+// Priority order:
+//   1. Explicit hashtag on the post (#vintage / #moodboard / #popculture)
+//   2. Keyword scan of the caption text
+//   3. Default → 'all' (shows in All tab only)
+//
+// To explicitly override a post's category from Instagram, add one of:
+//   #vintage  #moodboard  #popculture
+// to its caption. Keyword matching handles posts that don't use hashtags.
+
+const CATEGORY_RULES: { cat: string; hashtags: string[]; keywords: string[] }[] = [
+  {
+    cat: 'vintage',
+    hashtags: ['vintage', 'archive', 'retro', 'classic', 'antique', 'thrift', 'foundobject'],
+    keywords: [
+      'vintage', 'archive', 'retro', 'classic', 'antique', 'thrift', 'found object',
+      'old school', 'old-school', 'relic', 'artefact', 'artifact',
+      '1920s', '1930s', '1940s', '1950s', '1960s', '1970s', '1980s', '1990s',
+    ],
+  },
+  {
+    cat: 'moodboard',
+    hashtags: ['moodboard', 'mood', 'aesthetic', 'inspo', 'inspiration', 'vibes'],
+    keywords: [
+      'moodboard', 'mood board', 'aesthetic', 'atmosphere', 'vibe', 'vibes',
+      'texture', 'composition', 'still life', 'colour palette', 'color palette',
+    ],
+  },
+  {
+    cat: 'popculture',
+    hashtags: [
+      'popculture', 'pop', 'culture', 'comics', 'comic', 'film', 'movie', 'music',
+      'anime', 'manga', 'games', 'gaming', 'tv', 'series',
+    ],
+    keywords: [
+      // Comics & superheroes
+      'comic', 'comics', 'batman', 'marvel', 'dc ', 'dc comics', 'spider-man', 'spiderman',
+      'captain america', 'superman', 'graphic novel', 'manga', 'anime',
+      // Film & TV
+      'film', 'movie', 'director', 'series', 'season', 'episode', 'show', 'cinema',
+      'last of us', 'breaking bad', 'sopranos', 'euphoria', 'succession',
+      // Music
+      'album', 'song', 'track', 'band', 'musician', 'artist', 'concert', 'tour',
+      'buckley', 'kendrick', 'kanye', 'tyler', 'rocky', 'asap', 'frank ocean',
+      // Games
+      'game', 'gaming', 'playstation', 'xbox', 'nintendo', 'ps5', 'ps4',
+      // Sports & culture
+      'formula 1', 'formula one', 'f1', 'schumacher', 'leclerc',
+      'football', 'basketball', 'nba', 'nfl', 'nfl', 'tennis',
+      // Art & design
+      'illustration', 'artwork', 'art work', 'mazzucchelli', 'mazzuchelli',
+    ],
+  },
+];
+
+function extractCat(caption: string, hashtags?: string[]): string {
+  const lower = (caption ?? '').toLowerCase();
+  const postTags = (hashtags ?? []).map((t) => t.toLowerCase());
+
+  for (const rule of CATEGORY_RULES) {
+    // Check explicit hashtags first (fastest, most reliable)
+    if (postTags.some((t) => rule.hashtags.includes(t))) return rule.cat;
+    // Fall back to keyword scan of the caption
+    if (rule.keywords.some((kw) => lower.includes(kw))) return rule.cat;
+  }
+
   return 'all';
 }
