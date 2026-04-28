@@ -28,14 +28,36 @@ Change colors, fonts, or spacing there — the entire site updates.
 | Shop teaser text | `components/ShopTeaser.tsx` → `COPY` |
 | About page body | `app/about/page.tsx` → `ABOUT_COPY` |
 
-## Adding the Instagram token
+## Live Instagram posts — two options
 
-1. Get a long-lived Instagram Graph API token for `@thelifefolder`
-2. Open `.env.local` and set: `INSTAGRAM_ACCESS_TOKEN=your_token_here`
-3. In Netlify → Site settings → Environment variables → set `INSTAGRAM_ACCESS_TOKEN`
-4. The site switches to live data automatically — no code changes needed
+The archive auto-falls back to `data/fallback-archive.json` when neither option is configured.
 
-Token expires after ~60 days. Refresh via the Instagram API before expiry.
+### Option A — Behold.so (recommended, no Meta developer account)
+
+Behold.so is a free service that handles Instagram auth on your behalf.
+
+1. Go to **behold.so** → sign up free
+2. Click **"Create a feed"** → connect `@thelifefolder` via Instagram OAuth (their flow, not yours)
+3. Copy the **Feed ID** from the dashboard (looks like `abc123xyz`)
+4. In `.env.local`: `BEHOLD_FEED_ID=abc123xyz`
+5. In Netlify → Environment variables: set `BEHOLD_FEED_ID`
+
+Posts refresh every 24 hours on the free tier. No code changes needed when you post on Instagram.
+
+### Option B — Official Instagram Graph API token
+
+Requires a Meta developer app (more setup, more control, 60-day token).
+
+1. Create a Meta developer app at developers.facebook.com
+2. Get a long-lived Instagram Basic Display API token for `@thelifefolder`
+3. In `.env.local`: `INSTAGRAM_ACCESS_TOKEN=your_token`
+4. In Netlify → Environment variables: set `INSTAGRAM_ACCESS_TOKEN`
+
+Token expires every ~60 days — set a calendar reminder to refresh it.
+
+### Priority order
+
+`INSTAGRAM_ACCESS_TOKEN` → `BEHOLD_FEED_ID` → fallback JSON
 
 ## Essays (Substack)
 
@@ -51,7 +73,7 @@ If the feed is unreachable, the site falls back to `data/fallback-writings.json`
 | Build command | `npm run build` |
 | Publish directory | `.next` |
 | Node version | 18+ |
-| Environment variable | `INSTAGRAM_ACCESS_TOKEN` (blank until token ready) |
+| Environment variables | `INSTAGRAM_ACCESS_TOKEN` and/or `BEHOLD_FEED_ID` (blank until ready) |
 
 **Branch:** `editorial`  
 After deploying, point DNS: `editorial.thelifefolder.com → Netlify domain`.
