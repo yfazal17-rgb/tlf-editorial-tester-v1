@@ -202,7 +202,7 @@ body {
 .filter-btn:hover { background: var(--parchment-dark); color: var(--ink); }
 .filter-btn.active { background: var(--gold); color: var(--parchment); }
 
-.archive-grid { columns: 4; column-gap: 1px; }
+.archive-grid { columns: 3; column-gap: 1px; }
 .archive-item {
   break-inside: avoid;
   margin-bottom: 1px;
@@ -234,7 +234,7 @@ body {
   font-family: var(--cond);
   font-size: 18px;
   font-weight: 600;
-  color: var(--parchment);
+  color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1.1;
