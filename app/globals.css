@@ -77,6 +77,15 @@ body {
   backdrop-filter: blur(8px);
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
+.nav-logo-img { width: 28px; height: 28px; image-rendering: pixelated; }
+.hero-logo-img {
+  width: 160px;
+  height: 160px;
+  image-rendering: pixelated;
+  filter: drop-shadow(4px 6px 0px var(--gold));
+}
+.footer-logo-img { width: 36px; height: 36px; image-rendering: pixelated; opacity: 0.9; }
+
 .nav-wordmark {
   font-family: var(--mono);
   font-size: 11px;

@@ -2,6 +2,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const NAV_LINKS = [
@@ -20,6 +21,14 @@ export default function Nav() {
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
       <Link href="/" className="nav-logo">
+        <Image
+          src="/images/tlf-logo.png"
+          alt="TLF"
+          width={28}
+          height={28}
+          className="nav-logo-img"
+          priority
+        />
         <span className="nav-wordmark">TheLifeFolder</span>
       </Link>
       <ul className="nav-links">

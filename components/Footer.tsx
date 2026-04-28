@@ -1,11 +1,19 @@
 // Site footer with brand, nav links, and copyright.
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
     <footer>
       <div>
         <div className="footer-brand">
+          <Image
+            src="/images/tlf-logo.png"
+            alt="TLF"
+            width={36}
+            height={36}
+            className="footer-logo-img"
+          />
           <span className="footer-brand-name">TLF</span>
         </div>
         <div className="footer-tagline">everything that matters, filed.</div>

@@ -2,6 +2,7 @@
 // Edit HERO_COPY to change the headline, eyebrow, or tagline.
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const HERO_COPY = {
@@ -41,17 +42,14 @@ export default function Hero({ archiveCount, essayCount }: Props) {
         transition={{ delay: 0.5, duration: 0.6 }}
       >
         <div className="hero-logo-wrap">
-          {/* TLF wordmark — replace with <Image> if a logo file is added to /public/images/ */}
-          <span style={{
-            fontFamily: 'var(--cond)',
-            fontSize: '80px',
-            fontWeight: 700,
-            color: 'var(--gold)',
-            letterSpacing: '-0.04em',
-            lineHeight: 1,
-          }}>
-            TLF
-          </span>
+          <Image
+            src="/images/tlf-logo.png"
+            alt="TheLifeFolder"
+            width={160}
+            height={160}
+            className="hero-logo-img"
+            priority
+          />
         </div>
 
         <div className="hero-index">
