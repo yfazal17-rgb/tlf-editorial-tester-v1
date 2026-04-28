@@ -85,7 +85,9 @@ async function fetchViaBehold(feedId: string): Promise<ArchiveItem[]> {
 
     if (!res.ok) throw new Error(`Behold.so ${res.status}`);
 
-    const posts: BeholdPost[] = await res.json();
+    // Response shape: { posts: BeholdPost[], username, biography, ... }
+    const body: BeholdResponse = await res.json();
+    const posts = Array.isArray(body) ? body : (body.posts ?? []);
 
     return posts
       .filter((p) => p.mediaType === 'IMAGE' || p.mediaType === 'CAROUSEL_ALBUM')
@@ -95,8 +97,8 @@ async function fetchViaBehold(feedId: string): Promise<ArchiveItem[]> {
         tag: extractTag(post.caption),
         desc: extractDesc(post.caption),
         cat: extractCat(post.caption),
-        // Prefer the medium-res thumbnail for performance; fall back to full URL
-        image: post.sizes?.medium?.url ?? post.mediaUrl,
+        // Behold CDN (behold.pictures) for medium-res; Instagram CDN as fallback
+        image: post.sizes?.medium?.mediaUrl ?? post.sizes?.large?.mediaUrl ?? post.mediaUrl,
         iglink: post.permalink,
         era: post.timestamp
           ? new Date(post.timestamp).getFullYear().toString()
@@ -109,22 +111,26 @@ async function fetchViaBehold(feedId: string): Promise<ArchiveItem[]> {
   }
 }
 
-// Behold.so response shape (documented at behold.so/developers)
+type BeholdSize = { mediaUrl: string; width: number; height: number };
+
 type BeholdPost = {
   id: string;
   caption: string;
+  prunedCaption?: string;
   mediaType: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
   mediaUrl: string;
-  thumbnailUrl?: string;
   permalink: string;
   timestamp: string;
-  prunedAt: string | null;
   sizes?: {
-    small?: { url: string; width: number; height: number };
-    medium?: { url: string; width: number; height: number };
-    large?: { url: string; width: number; height: number };
+    small?: BeholdSize;
+    medium?: BeholdSize;
+    large?: BeholdSize;
+    full?: BeholdSize;
   };
 };
+
+// Behold wraps the posts array: { posts: BeholdPost[], username, ... }
+type BeholdResponse = BeholdPost[] | { posts: BeholdPost[]; [key: string]: unknown };
 
 // ─── Caption parsing helpers ──────────────────────────────────────────────────
 
