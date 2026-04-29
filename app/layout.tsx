@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Space_Mono, Barlow_Condensed } from 'next/font/google';
 import './globals.css';
+import Station17Panel from '@/components/Station17Panel';
 
 const cormorant = Cormorant_Garamond({
   variable: '--font-cormorant',
@@ -38,7 +39,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${spaceMono.variable} ${barlowCondensed.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Station17Panel />
+      </body>
     </html>
   );
 }

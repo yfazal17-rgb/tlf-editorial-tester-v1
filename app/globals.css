@@ -748,4 +748,262 @@ footer {
   /* Footer */
   footer { grid-template-columns: 1fr; padding: 48px 20px 32px; gap: 32px; }
   .footer-copy { text-align: left; }
+
+  /* Station 17 */
+  .s17-trigger { bottom: 16px; right: 16px; }
+  .s17-body { padding: 24px 16px 32px; }
+  .s17-vinyl { width: 160px; height: 160px; }
+  .s17-vinyl-label { width: 64px; height: 64px; }
 }
+
+/* ─── Station 17 ────────────────────────────────────────────────────────────── */
+
+/* Entry pill — fixed bottom-right, persists on all pages */
+.s17-trigger {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  background: var(--footer-bg);
+  border: 1px solid var(--border);
+  padding: 9px 16px 9px 12px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.s17-trigger:hover { color: var(--ink); border-color: var(--gold); }
+
+.s17-trigger-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.s17-trigger-dot--live {
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+}
+
+/* Backdrop */
+.s17-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  background: oklch(10% 0.04 148 / 0.55);
+}
+
+/* Panel — slides up from bottom */
+.s17-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--footer-bg);
+  border-top: 1px solid var(--border);
+  max-height: 82vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.s17-panel::-webkit-scrollbar { display: none; }
+
+/* Panel header */
+.s17-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--footer-bg);
+  z-index: 1;
+}
+.s17-header-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+.s17-close {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--ink-mid);
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.s17-close:hover { background: var(--gold); color: var(--parchment); border-color: var(--gold); }
+
+/* Body — centred column */
+.s17-body {
+  padding: 36px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Vinyl record */
+.s17-vinyl {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+  background:
+    radial-gradient(circle, transparent 37%, oklch(18% 0.04 148 / 0.7) 38%, transparent 39%),
+    radial-gradient(circle, transparent 42%, oklch(18% 0.04 148 / 0.7) 43%, transparent 44%),
+    radial-gradient(circle, transparent 47%, oklch(18% 0.04 148 / 0.7) 48%, transparent 49%),
+    radial-gradient(circle, transparent 52%, oklch(18% 0.04 148 / 0.7) 53%, transparent 54%),
+    radial-gradient(circle, transparent 57%, oklch(18% 0.04 148 / 0.7) 58%, transparent 59%),
+    radial-gradient(circle, transparent 62%, oklch(18% 0.04 148 / 0.7) 63%, transparent 64%),
+    radial-gradient(circle, transparent 67%, oklch(18% 0.04 148 / 0.7) 68%, transparent 69%),
+    oklch(9% 0.028 148);
+  box-shadow: 0 8px 40px oklch(0% 0 0 / 0.5), 0 0 0 1px var(--border);
+}
+.s17-vinyl--spinning {
+  animation: s17-spin 4s linear infinite;
+}
+@keyframes s17-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Center label — album art */
+.s17-vinyl-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+  border: 2px solid oklch(22% 0.05 148);
+}
+.s17-vinyl-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Center spindle hole */
+.s17-vinyl-hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--footer-bg);
+  border: 1px solid oklch(30% 0.05 148);
+  z-index: 3;
+}
+
+/* Track name + artist */
+.s17-track-info { text-align: center; }
+.s17-track-title {
+  font-family: var(--cond);
+  font-size: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.s17-track-artist {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+
+/* Controls — play + skip */
+.s17-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.s17-btn-play {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+  color: var(--parchment);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.s17-btn-play:hover { background: var(--gold-dark); }
+.s17-btn-skip {
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--ink-mid);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.s17-btn-skip:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Horizontally scrollable album row */
+.s17-album-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.s17-album-row::-webkit-scrollbar { display: none; }
+.s17-album-thumb {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border: 1px solid transparent;
+  background: var(--parchment-dark);
+  padding: 0;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  overflow: hidden;
+}
+.s17-album-thumb:hover:not(.s17-album-thumb--active) { border-color: var(--ink-mid); }
+.s17-album-thumb--active { border-color: var(--gold); }
+.s17-album-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.15s;
+}
+.s17-album-thumb:not(.s17-album-thumb--active) .s17-album-img { opacity: 0.65; }
+.s17-album-thumb:hover .s17-album-img,
+.s17-album-thumb--active .s17-album-img { opacity: 1; }
