@@ -19,9 +19,15 @@ export default function ShopTeaser() {
       transition={{ duration: 0.5 }}
     >
       <div className="shop-teaser-text">{COPY.main}</div>
-      <div className="shop-teaser-sub">
-        <a href="https://thelifefolder.com" target="_blank" rel="noopener noreferrer">{COPY.sub}</a>
-      </div>
+      <div className="shop-teaser-sub">{COPY.sub}</div>
+      <a
+        href="https://thelifefolder.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="shop-teaser-btn"
+      >
+        Open The Folder ↗
+      </a>
     </motion.div>
   );
 }

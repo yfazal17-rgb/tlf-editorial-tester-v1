@@ -492,6 +492,23 @@ body {
   letter-spacing: 0.1em;
   opacity: 0.5;
 }
+.shop-teaser-btn {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 12px 32px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.shop-teaser-btn:hover {
+  background: var(--gold);
+  color: var(--parchment);
+}
 
 /* ─── Footer ───────────────────────────────────────────────────────────────── */
 footer {
