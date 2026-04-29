@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const COPY = {
   main: 'something is coming.',
-  sub: 'thelifefolder.com/shop — when it\'s ready.',
+  sub: 'thelifefolder.com — open the folder.',
 };
 
 export default function ShopTeaser() {
@@ -19,7 +19,9 @@ export default function ShopTeaser() {
       transition={{ duration: 0.5 }}
     >
       <div className="shop-teaser-text">{COPY.main}</div>
-      <div className="shop-teaser-sub">{COPY.sub}</div>
+      <div className="shop-teaser-sub">
+        <a href="https://thelifefolder.com" target="_blank" rel="noopener noreferrer">{COPY.sub}</a>
+      </div>
     </motion.div>
   );
 }
