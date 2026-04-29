@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = [
@@ -15,6 +16,7 @@ const NAV_LINKS = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   // Lock body scroll while menu is open
   useEffect(() => {
@@ -45,11 +47,17 @@ export default function Nav() {
         </Link>
 
         <ul className="nav-links">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link href={link.href}>{link.label}</Link>
-            </li>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const hrefPath = link.href.split('#')[0] || '/';
+            const active = !link.href.includes('#') && pathname === hrefPath;
+            return (
+              <li key={link.href}>
+                <Link href={link.href} aria-current={active ? 'page' : undefined}>
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <button

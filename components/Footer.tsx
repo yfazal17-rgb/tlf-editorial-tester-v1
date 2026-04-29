@@ -28,7 +28,7 @@ export default function Footer() {
       </ul>
 
       <div className="footer-copy">
-        © 2025 TheLifeFolder<br />
+        © {new Date().getFullYear()} TheLifeFolder<br />
         All rights filed.<br />
         Est. 2024
       </div>
