@@ -21,7 +21,7 @@ export default function ShopTeaser() {
       <div className="shop-teaser-text">{COPY.main}</div>
       <div className="shop-teaser-sub">{COPY.sub}</div>
       <a
-        href="https://thelifefolder.com"
+        href="https://shop.thelifefolder.com"
         target="_blank"
         rel="noopener noreferrer"
         className="shop-teaser-btn"
