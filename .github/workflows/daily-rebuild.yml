@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Trigger Cloudflare Pages deploy hook
         run: |
-          curl -s -X POST "${{ secrets.CF_DEPLOY_HOOK }}"
+          curl --fail -X POST "${{ secrets.CF_DEPLOY_HOOK }}"
           echo "Deploy triggered."
